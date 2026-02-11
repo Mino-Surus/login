@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Главная страница</title>
 </head>
 <body>
-    <h1>число</h1>
-    {% if number %}
-    <p>ваше число: {{number}}</p>
+    {% if user.is_authenticated %}
+        <h1>Здравствуйте, {{ user.username }}!</h1>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Выход">
+        </form>
     {% else %}
-    <p>число не установлено пепе шнейле</p>
+        <h1>Добро пожаловать!</h1>
+        <a href="{% url 'login' %}">Вход</a>
     {% endif %}
 </body>
 </html>

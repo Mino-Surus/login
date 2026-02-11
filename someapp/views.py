@@ -1,18 +1,18 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
 
-def show_number(request):
+def main_page(request):
+    return render(request, 'main.html')
 
-    number = request.session.get('number')
-    return render(request, 'main.html',
-                {
-                    'number': number
-                }
-                )
-    request.session['number'] = 42
-    
+def login_view(request):
+    if request.method == 'POST':
+        name = request.POST['username']
+        user, _ = User.objects.get_or_create(username=name)
+        login(request, user)
+        return redirect('main')
+    return render(request, 'login.html')
 
-
-def set_number(request, number):
-    response = HttpResponse()
-    response.set_cookie('number', number)
-    return response
+def logout_view(request):
+    logout(request)
+    return redirect('main')
