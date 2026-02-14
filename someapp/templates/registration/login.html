@@ -6,8 +6,11 @@
 <body>
     <h2>Вход на сайт</h2>
     
-    <form method="post" action="{% url 'login' %}">
+    <form method="post">
         {% csrf_token %}
+        
+        <input type="hidden" name="next" value="{% url 'cabinet' %}">
+
         <p>
             <label>Имя пользователя:</label><br>
             <input type="text" name="username" required>
@@ -24,4 +27,3 @@
     <p><a href="{% url 'main' %}">На главную</a></p>
 </body>
 </html>
-

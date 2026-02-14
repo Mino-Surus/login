@@ -6,13 +6,14 @@
 <body>
     {% if user.is_authenticated %}
         <h1>Здравствуйте, {{ user.username }}!</h1>
+        <p><a href="{% url 'cabinet' %}">Личный кабинет</a></p>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input type="submit" value="Выход">
         </form>
     {% else %}
         <h1>Добро пожаловать!</h1>
-        <a href="{% url 'login' %}">Вход</a>
+        <a href="{% url 'login' %}">Личный Кабинет</a>
     {% endif %}
 </body>
 </html>
